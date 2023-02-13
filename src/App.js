@@ -1,13 +1,11 @@
 function App() {
   return (
     <div className="h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
-      {/* title  */}
       <h1 className="text-center text-4xl font-bold py-3 text-white">
         CRUD Application
       </h1>
       <div className="flex items-center justify-center min-h-[500px]">
         <form>
-          {/* input area  */}
           <div className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex gap-5">
             <input
               type="text"
@@ -18,7 +16,6 @@ function App() {
             </button>
           </div>
 
-          {/* output area */}
           <div className="bg-white shadow-xl p-5 rounded-xl text-center font-semibold max-h-[300px]">
             <div className="bg-slate-200 flex gap-5 items-center rounded-md p-3 mb-3">
               <p>A crud application created by reactjs and tailwind css</p>
