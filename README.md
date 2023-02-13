@@ -1,3 +1,3 @@
-# Multiple Counter Using React Js and Tailwind CSS
+# CRUD Application Using React Js and Tailwind CSS
 
-![multiple-counter](./src/assets/multiple-counter.png)
+![crud-application](./src/assets/crud-application.png)
