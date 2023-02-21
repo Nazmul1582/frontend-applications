@@ -1,12 +1,7 @@
 import { useState } from "react";
 function App() {
   const [noteTitle, setNoteTitle] = useState("");
-  const [notes, setNotes] = useState([
-    {
-      id: Date.now() + "",
-      title: "Demo",
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editableNote, setEditableNote] = useState(null);
 
@@ -17,11 +12,11 @@ function App() {
       return;
     }
     setNotes([
-      ...notes,
       {
         id: Date.now() + "",
         title: noteTitle,
       },
+      ...notes,
     ]);
     setNoteTitle("");
   };
@@ -42,6 +37,7 @@ function App() {
     e.preventDefault();
     if (!noteTitle) {
       alert("Please type a valid text!");
+      return;
     }
     const newNotes = notes.filter((note) => {
       if (note.id === editableNote.id) {
@@ -56,17 +52,18 @@ function App() {
   };
 
   return (
-    <div className="h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
+    <div className="min-h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
       <h1 className="text-center text-4xl font-bold py-5 text-white">
         CRUD Application
       </h1>
-      <div className="flex items-center justify-center min-h-[500px]">
-        <form
-          onSubmit={(e) => {
-            editMode ? updateHandler(e) : createHandler(e);
-          }}
-        >
-          <div className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5">
+      <div className="flex items-center justify-center custom-height">
+        <div>
+          <form
+            onSubmit={(e) => {
+              editMode ? updateHandler(e) : createHandler(e);
+            }}
+            className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
+          >
             <input
               type="text"
               value={noteTitle}
@@ -79,7 +76,7 @@ function App() {
             >
               {editMode ? "Update" : "Add"}
             </button>
-          </div>
+          </form>
 
           <div
             className={`bg-white shadow-xl rounded-xl text-center font-bold p-5  ${
@@ -117,7 +114,7 @@ function App() {
               ))}
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
