@@ -1,3 +1,3 @@
 # Simple Student Attendance Application
 
-![crud-application](./src/assets/student-attendance-application.png)
+![Simple Student Attendance Application](./src/assets/student-attendance-application.png)
