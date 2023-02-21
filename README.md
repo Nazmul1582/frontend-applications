@@ -1,3 +1,3 @@
-# CRUD Application Using React Js and Tailwind CSS
+# Simple Student Attendance Application
 
-![crud-application](./src/assets/crud-application.png)
+![crud-application](./src/assets/student-attendance-application.png)
