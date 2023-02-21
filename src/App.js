@@ -2,31 +2,22 @@ import { useState } from "react";
 
 function App() {
   const [noteTitle, setNoteTitle] = useState("");
-  const [notes, setNotes] = useState([
-    {
-      id: "1",
-      title: "Note 1",
-    },
-    {
-      id: 2,
-      title: "Note 2",
-    },
-  ]);
+  const [notes, setNotes] = useState([]);
   const [editMode, setEditMode] = useState(false);
   const [editableNote, setEditableNote] = useState(null);
 
   const createHandler = (e) => {
     e.preventDefault();
     if (!noteTitle) {
-      alert("Please Type a valid text");
+      alert("Please type a valid text");
       return;
     }
     setNotes([
-      ...notes,
       {
         id: Date.now() + "",
         title: noteTitle,
       },
+      ...notes,
     ]);
     setNoteTitle("");
   };
@@ -41,7 +32,7 @@ function App() {
   const updateHandler = (e) => {
     e.preventDefault();
     if (!noteTitle) {
-      alert("Please Type a valid text");
+      alert("Please type a valid text");
       return;
     }
     const newNotes = notes.filter((note) => {
@@ -52,39 +43,38 @@ function App() {
     });
     setNotes(newNotes);
     setEditMode(false);
+    setEditableNote(null);
     setNoteTitle("");
   };
 
-  const RemoveHandler = (noteId) => {
+  const removeHandler = (noteId) => {
     const newNotes = notes.filter((note) => note.id !== noteId);
     setNotes(newNotes);
   };
 
   return (
-    <div className="h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
+    <div className="min-h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
       <h1 className="text-center text-4xl font-bold py-5 text-white">
         CRUD Application
       </h1>
-      <div className="flex items-center justify-center min-h-[500px]">
-        <form
-          onSubmit={(e) => {
-            editMode ? updateHandler(e) : createHandler(e);
-          }}
-        >
-          <div className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5">
+      <div className="flex items-center justify-center custom-height">
+        <div>
+          <form
+            onSubmit={(e) => {
+              editMode ? updateHandler(e) : createHandler(e);
+            }}
+            className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
+          >
             <input
               type="text"
               value={noteTitle}
               onChange={(e) => setNoteTitle(e.target.value)}
               className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-cyan-500 outline-0"
             />
-            <button
-              type="submit"
-              className="btn bg-cyan-500 shadow-cyan-500/50"
-            >
+            <button className="btn bg-cyan-500 shadow-cyan-500/50">
               {editMode ? "Update" : "Add"}
             </button>
-          </div>
+          </form>
 
           <div
             className={`bg-white shadow-xl rounded-xl text-center font-bold p-5  ${
@@ -105,15 +95,13 @@ function App() {
                   <div className="flex gap-3">
                     <button
                       onClick={() => editHandler(note.id)}
-                      type="button"
-                      className="btn  bg-indigo-500 shadow-indigo-500/50"
+                      className="btn bg-indigo-500 shadow-indigo-500/50"
                     >
                       Edit
                     </button>
                     <button
-                      onClick={() => RemoveHandler(note.id)}
-                      type="button"
-                      className="btn  bg-pink-500 shadow-pink-500/50"
+                      onClick={() => removeHandler(note.id)}
+                      className="btn bg-pink-500 shadow-pink-500/50"
                     >
                       Remove
                     </button>
@@ -122,7 +110,7 @@ function App() {
               ))}
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
