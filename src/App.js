@@ -1,6 +1,6 @@
 function App() {
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-amber-300 to-amber-500">
+    <div className="min-h-screen  bg-gradient-to-r from-amber-500 to-amber-300">
       <h1 className="text-center text-4xl font-bold py-5">
         Simple Student Attendance Application
       </h1>
@@ -66,36 +66,6 @@ function App() {
                 </button>
               </div>
             </div>
-            {/* <div className="flex flex-wrap gap-1 font-semibold my-2 bg-slate-200 py-2 rounded-md">
-              <p>Student Name</p>
-              <button className="btn  bg-indigo-500 shadow-indigo-500/50">
-                Edit
-              </button>
-              <button className="btn  bg-cyan-500 shadow-cyan-500/50">
-                Remove
-              </button>
-              <button className="btn  bg-amber-500 shadow-amber-500/50">
-                Make present
-              </button>
-              <button className="btn  bg-pink-500 shadow-pink-500/50">
-                Make Absent
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-1 font-semibold my-2 bg-slate-200 py-2 rounded-md">
-              <p>Student Name</p>
-              <button className="btn  bg-indigo-500 shadow-indigo-500/50">
-                Edit
-              </button>
-              <button className="btn  bg-cyan-500 shadow-cyan-500/50">
-                Remove
-              </button>
-              <button className="btn  bg-amber-500 shadow-amber-500/50">
-                Make present
-              </button>
-              <button className="btn  bg-pink-500 shadow-pink-500/50">
-                Make Absent
-              </button>
-            </div> */}
           </div>
           <div className="bg-white shadow-xl rounded-xl text-center p-3">
             <h2 className="mb-5 text-xl font-bold">Present Students</h2>
