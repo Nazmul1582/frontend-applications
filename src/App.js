@@ -33,7 +33,7 @@ function App() {
   const updateHandler = (e) => {
     e.preventDefault();
     if (!studentName) {
-      alert("Please enter a vali name");
+      alert("Please enter a valid name");
       return;
     }
     const newStudentsList = allStudents.map((student) => {
@@ -60,6 +60,10 @@ function App() {
       if (student.id === studentId) {
         if (student.isPresent === undefined) {
           student.isPresent = true;
+        } else if (student.isPresent === true) {
+          alert(`${student.name} is already in present list`);
+        } else {
+          alert(`${student.name} is already in absent list`);
         }
       }
       return student;
@@ -72,6 +76,10 @@ function App() {
       if (student.id === studentId) {
         if (student.isPresent === undefined) {
           student.isPresent = false;
+        } else if (student.isPresent === true) {
+          alert(`${student.name} is already in present list`);
+        } else {
+          alert(`${student.name} is already in absent list`);
         }
       }
       return student;
