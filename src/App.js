@@ -60,8 +60,10 @@ function App() {
       if (student.id === studentId) {
         if (student.isPresent === undefined) {
           student.isPresent = true;
+        } else if (student.isPresent === true) {
+          alert(`${student.name} is already in present list`);
         } else {
-          alert("This student is already in a list");
+          alert(`${student.name} is already in absent list`);
         }
       }
       return student;
@@ -74,8 +76,10 @@ function App() {
       if (student.id === studentId) {
         if (student.isPresent === undefined) {
           student.isPresent = false;
+        } else if (student.isPresent === true) {
+          alert(`${student.name} is already in present list`);
         } else {
-          alert("This student is already in a list");
+          alert(`${student.name} is already in absent list`);
         }
       }
       return student;
