@@ -168,7 +168,10 @@ function App() {
             {allStudents.map(
               (student) =>
                 student.isPresent && (
-                  <div className="flex justify-between flex-wrap gap-1 font-semibold my-2 bg-slate-200 p-2 rounded-md">
+                  <div
+                    key={student.id}
+                    className="flex justify-between flex-wrap gap-1 font-semibold my-2 bg-slate-200 p-2 rounded-md"
+                  >
                     <p>{student.name}</p>
                     <button
                       onClick={() => accidentallyAddedHandler(student.id)}
@@ -189,7 +192,10 @@ function App() {
             {allStudents.map(
               (student) =>
                 student.isPresent === false && (
-                  <div className="flex justify-between flex-wrap gap-1 font-semibold my-2 bg-slate-200 p-2 rounded-md">
+                  <div
+                    key={student.id}
+                    className="flex justify-between flex-wrap gap-1 font-semibold my-2 bg-slate-200 p-2 rounded-md"
+                  >
                     <p>{student.name}</p>
                     <button
                       onClick={() => accidentallyAddedHandler(student.id)}
