@@ -1,3 +1,3 @@
-# CRUD Application Using React Js and Tailwind CSS
+# Note Taking Application Using React Js and Tailwind CSS
 
-![crud-application](./src/assets/crud-application.png)
+![note-taking-app](./src/assets/note-taking-app.png)
