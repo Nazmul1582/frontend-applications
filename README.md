@@ -1,3 +1,3 @@
-# Simple Student Attendance Application
+# Handling Side Effects in React Js
 
-![simple-student-attendance-application](./src/assets/simple-student-attendance-application.png)
+![withoutUseEffect](./src/assets/withoutUseEffect.png)
