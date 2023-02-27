@@ -1,4 +1,4 @@
-import WithoutUseEffect from "./components/WithoutUseEffect";
+import UsingUseEffect from "./components/UsingUseEffect";
 
 function App() {
   return (
@@ -7,7 +7,7 @@ function App() {
         Data fetching from fake server
       </h1>
       <div className="text-center">
-        <WithoutUseEffect />
+        <UsingUseEffect />
       </div>
     </div>
   );
