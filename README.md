@@ -1,3 +1,3 @@
-# Simple Student Attendance Application
+# Fetch API with React Js
 
-![Simple Student Attendance Application](./src/assets/simple-student-attendance-application.png)
+![Fetch API with React Js](./src/assets/fetch%20api.png)
