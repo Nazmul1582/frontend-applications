@@ -54,7 +54,6 @@ function App() {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    console.log(editableNote);
 
     // const newNote = notes.filter((note) => {
     //   if (note.id === editableNote.id) {
@@ -63,18 +62,19 @@ function App() {
     //   return note;
     // });
 
-    // const newNote = {
-    //   title: "Nazmul Hasan",
-    // };
-    // fetch(`http://localhost:4000/notes/${editableNote.id}`, {
-    //   method: "PATCH",
-    //   body: JSON.stringify(newNote),
-    //   headers: {
-    //     "content-type": "application/json",
-    //   },
-    // })
-    //   .then((response) => response.json())
-    //   .then((data) => console.log(data));
+    const newNote = {
+      title: noteTitle,
+    };
+    fetch(`http://localhost:4000/notes/${editableNote.id}`, {
+      method: "PATCH",
+      body: JSON.stringify(newNote),
+      headers: {
+        "content-type": "application/json",
+      },
+    }).then(() => {
+      getAllNotes();
+      setNoteTitle("");
+    });
   };
 
   return (
