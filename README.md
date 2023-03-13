@@ -1,3 +1,3 @@
-# Fetch API with React Js
+# Note Taking App with Fetch API
 
-![Fetch API with React Js](./src/assets/fetch%20api.png)
+![Note Taking App with Fetch API](./src/assets/note-taking-app-with-fetch-api.png)

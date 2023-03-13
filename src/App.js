@@ -70,13 +70,14 @@ function App() {
     }).then(() => {
       getAllNotes();
       setNoteTitle("");
+      setEditMode(false);
+      setEditableNote(null);
     });
   };
-
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-cyan-500 to-pink-500">
+    <div className="min-h-screen  bg-gradient-to-r from-green-500 to-lime-500">
       <h1 className="text-center text-4xl font-bold py-5 text-white">
-        Fetch API with React Js
+        Note Taking App with Fetch API
       </h1>
       <div className="flex items-center justify-center custom-height">
         <div>
@@ -88,9 +89,9 @@ function App() {
               type="text"
               value={noteTitle}
               onChange={(e) => setNoteTitle(e.target.value)}
-              className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-cyan-500 outline-0"
+              className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-green-500 outline-0"
             />
-            <button className="btn bg-cyan-500 shadow-cyan-500/50">
+            <button className="btn bg-green-500 shadow-green-500/50">
               {editMode ? "Update" : "Add"}
             </button>
           </form>
@@ -120,7 +121,7 @@ function App() {
                     </button>
                     <button
                       onClick={() => removeHandler(note.id)}
-                      className="btn bg-pink-500 shadow-pink-500/50"
+                      className="btn bg-rose-500 shadow-rose-500/50"
                     >
                       Remove
                     </button>
