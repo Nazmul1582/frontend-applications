@@ -1,6 +1,4 @@
-import { useState } from "react";
-import InputArea from "./components/InputArea";
-import OutputArea from "./components/OutputArea";
+import React, { useEffect, useState } from "react";
 
 function App() {
   const [noteTitle, setNoteTitle] = useState("");
@@ -8,31 +6,128 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const [editableNote, setEditableNote] = useState(null);
 
+  const getAllNotes = () => {
+    fetch("http://localhost:4000/notes")
+      .then((response) => response.json())
+      .then((data) => setNotes(data));
+  };
+  useEffect(() => {
+    getAllNotes();
+  }, []);
+
+  const createHandler = (e) => {
+    e.preventDefault();
+    if (!noteTitle) {
+      alert("Please type a valid text!");
+      return;
+    }
+    const newNote = {
+      id: Date.now() + "",
+      title: noteTitle,
+    };
+    fetch("http://localhost:4000/notes", {
+      method: "POST",
+      body: JSON.stringify(newNote),
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getAllNotes();
+      setNoteTitle("");
+    });
+  };
+
+  const editHandler = (noteId) => {
+    setEditMode(true);
+    const toBeEdited = notes.find((note) => note.id === noteId);
+    setEditableNote(toBeEdited);
+    setNoteTitle(toBeEdited.title);
+  };
+
+  const updateHandler = (e) => {
+    e.preventDefault();
+    if (!noteTitle) {
+      alert("Please type a valid text!");
+      return;
+    }
+    fetch(`http://localhost:4000/notes/${editableNote.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        title: noteTitle,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getAllNotes();
+      setNoteTitle("");
+      setEditMode(false);
+      setEditMode(null);
+    });
+  };
+
+  const removeHandler = (noteId) => {
+    fetch(`http://localhost:4000/notes/${noteId}`, {
+      method: "DELETE",
+    }).then(() => getAllNotes());
+  };
+
   return (
-    <div className="min-h-screen  bg-gradient-to-r from-violet-500 to-indigo-500">
+    <div className="min-h-screen  bg-gradient-to-r from-green-500 to-lime-500">
       <h1 className="text-center text-4xl font-bold py-5 text-white">
-        Note Taking Application
+        Note Taking App with Fetch API
       </h1>
       <div className="flex items-center justify-center custom-height">
         <div>
-          <InputArea
-            noteTitle={noteTitle}
-            setNoteTitle={setNoteTitle}
-            notes={notes}
-            setNotes={setNotes}
-            editMode={editMode}
-            setEditMode={setEditMode}
-            editableNote={editableNote}
-            setEditableNote={setEditableNote}
-          />
+          <form
+            onSubmit={(e) => (editMode ? updateHandler(e) : createHandler(e))}
+            className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
+          >
+            <input
+              type="text"
+              value={noteTitle}
+              onChange={(e) => setNoteTitle(e.target.value)}
+              className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-green-500 outline-0"
+            />
+            <button className="btn bg-green-500 shadow-green-500/50">
+              {editMode ? "Update" : "Add"}
+            </button>
+          </form>
 
-          <OutputArea
-            setNoteTitle={setNoteTitle}
-            notes={notes}
-            setNotes={setNotes}
-            setEditMode={setEditMode}
-            setEditableNote={setEditableNote}
-          />
+          <div
+            className={`bg-white shadow-xl rounded-xl text-center font-bold p-5  ${
+              notes.length === 0 ? "hidden" : "block"
+            }`}
+          >
+            <div
+              className={` max-h-[300px] ${
+                notes.length >= 4 && "overflow-y-scroll"
+              }`}
+            >
+              {notes.map((note) => (
+                <div
+                  key={note.id}
+                  className="bg-slate-200 flex gap-5 items-center justify-between rounded-md p-3 my-3"
+                >
+                  <p className="text-xl">{note.title}</p>
+                  <div className="flex gap-3">
+                    <button
+                      onClick={() => editHandler(note.id)}
+                      className="btn bg-indigo-500 shadow-indigo-500/50"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => removeHandler(note.id)}
+                      className="btn bg-pink-500 shadow-pink-500/50"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

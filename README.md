@@ -1,3 +1,3 @@
-# Note Taking Application Using React Js and Tailwind CSS
+# Note Taking App with Fetch API
 
-![note-taking-app](./src/assets/note-taking-app.png)
+![Note Taking App with Fetch API](./src/assets/note-taking-app-with-fetch-api.png)
