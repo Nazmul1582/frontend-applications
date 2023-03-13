@@ -54,14 +54,10 @@ function App() {
 
   const updateHandler = (e) => {
     e.preventDefault();
-
-    // const newNote = notes.filter((note) => {
-    //   if (note.id === editableNote.id) {
-    //     note.title = editableNote.title;
-    //   }
-    //   return note;
-    // });
-
+    if (!noteTitle) {
+      alert("Please type a valid text");
+      return;
+    }
     const newNote = {
       title: noteTitle,
     };
