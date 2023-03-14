@@ -1,3 +1,3 @@
-# Note Taking Application using Fetch API & Lifting State Up Mechanism
+# Note Taking App using Context API and Fetch API
 
-![Note Taking Application using Fetch API & Lifting State Up Mechanism](./src/assets/note-taking-app-with-fetch-api.png)
+![Note Taking App using Context API and Fetch API](./src/assets/note-taking-app-using-fetch-and-context-api.png)

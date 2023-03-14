@@ -1,12 +1,9 @@
 import React from "react";
+import { useNote } from "../contexts/NoteContext";
 
-const InputArea = ({
-  noteTitle,
-  setNoteTitle,
-  createHandler,
-  editMode,
-  updateHandler,
-}) => {
+const InputArea = () => {
+  const { noteTitle, setNoteTitle, editMode, createHandler, updateHandler } =
+    useNote();
   return (
     <form
       onSubmit={(e) => (editMode ? updateHandler(e) : createHandler(e))}

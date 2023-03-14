@@ -1,6 +1,9 @@
 import React from "react";
+import { useNote } from "../contexts/NoteContext";
 
-const OutputArea = ({ notes, editHandler, removeHandler }) => {
+const OutputArea = () => {
+  const { notes, editHandler, removeHandler } = useNote();
+
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center font-bold p-5  ${
