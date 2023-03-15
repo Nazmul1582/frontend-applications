@@ -1,3 +1,3 @@
-# Note Taking App using Context API and Fetch API
+# Note Taking App using Context API and useReducer Hook
 
-![Note Taking App using Context API and Fetch API](./src/assets/note-taking-app-using-context-api-fetch-and.png)
+![Note Taking App using Context API and useReducer Hook](./src/assets/note-taking-app-using-useReducer-hook-and-context-api.png)
