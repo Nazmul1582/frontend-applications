@@ -16,16 +16,18 @@ const InputArea = () => {
       title: note.noteTitle,
     };
 
-    return await fetch("http://localhost:4000/notes", {
-      method: "POST",
-      body: JSON.stringify(newNote),
-      headers: {
-        "Content-Type": "application/json; charsert=UTF-8",
-      },
-    })
-      // .then((res) => res.json())
-      // .then((data) => console.log(data));
-      .then(() => getNotes());
+    return (
+      fetch("http://localhost:4000/notes", {
+        method: "POST",
+        body: JSON.stringify(newNote),
+        headers: {
+          "Content-Type": "application/json; charsert=UTF-8",
+        },
+      })
+        // .then((res) => res.json())
+        // .then((data) => console.log(data));
+        .then(() => getNotes())
+    );
   };
 
   return (
