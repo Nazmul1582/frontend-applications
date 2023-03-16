@@ -1,49 +1,37 @@
 const noteReducer = (state, action) => {
   switch (action.type) {
+    case "FETCH_SUCCESS":
+      return {
+        ...state,
+        isLoading: false,
+        notes: action.payload,
+      };
+    case "FETCH_FAILURE":
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload,
+      };
     case "CHANGE_TITLE":
       return {
         ...state,
         noteTitle: action.payload,
       };
     case "CREATE_NOTE":
-      const newNote = {
-        id: Date.now() + "",
-        title: state.noteTitle,
-      };
       return {
         ...state,
-        notes: [...state.notes, newNote],
+        notes: [...state.notes, action.payload],
         noteTitle: "",
       };
     case "EDIT_NOTE":
-      const toBeEditedNote = state.notes.find(
-        (item) => item.id === action.payload
-      );
-      return {
-        ...state,
-        editMode: true,
-        noteTitle: toBeEditedNote.title,
-        editableNote: toBeEditedNote,
-      };
+      return {};
     case "UPDATE_NOTE":
-      const updatedNotes = state.notes.filter((note) => {
-        if (note.id === state.editableNote.id) {
-          note.title = state.noteTitle;
-        }
-        return note;
-      });
-      return {
-        ...state,
-        notes: updatedNotes,
-        noteTitle: "",
-        editMode: false,
-        editableNote: null,
-      };
+      return {};
     case "REMOVE_NOTE":
-      return {
-        ...state,
-        notes: state.notes.filter((note) => note.id !== action.payload),
-      };
+      // return fetch(`http://localhost:4000/notes/${action.payload}`, {
+      //   method: "DELETE",
+      // });
+      return {};
     default:
       return state;
   }

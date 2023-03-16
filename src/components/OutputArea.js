@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNote } from "../contexts/NoteContext";
 
 const OutputArea = () => {
   const { note, dispatch } = useNote();
 
-  return (
+  useEffect(() => {
+    fetch("http://localhost:4000/notes")
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: "FETCH_SUCCESS", payload: data }))
+      .catch((err) => dispatch({ type: "FETCH_FAILURE", payload: err }));
+  }, [dispatch]);
+
+  return note.isLoading ? (
+    <h1 className="text-white">Loading ...</h1>
+  ) : (
     <div
       className={`bg-white shadow-xl rounded-xl text-center font-bold p-5  ${
         note.notes.length === 0 ? "hidden" : "block"

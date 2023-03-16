@@ -1,4 +1,4 @@
-import { createContext, useContext, useReducer } from "react";
+import React, { createContext, useContext, useReducer } from "react";
 import noteReducer from "../reducer/noteReducer";
 
 const NoteContext = createContext();
@@ -6,8 +6,10 @@ const NoteContext = createContext();
 export const useNote = () => useContext(NoteContext);
 
 const initialState = {
-  noteTitle: "",
+  isLoading: true,
   notes: [],
+  error: false,
+  noteTitle: "",
   editMode: false,
   editableNote: null,
 };
