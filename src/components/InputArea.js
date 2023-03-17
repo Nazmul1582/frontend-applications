@@ -1,51 +1,24 @@
-export default function InputArea({
-  studentName,
-  setStudentName,
-  allStudents,
-  setAllStudents,
-  editMode,
-  setEditMode,
-  editableStudent,
-  setEditableStudent,
-}) {
-  const addStudent = (e) => {
-    e.preventDefault();
-    if (!studentName) {
-      alert("Please type a valid name");
-      return;
-    }
-    setAllStudents([
-      {
-        id: Date.now() + "",
-        name: studentName,
-        isPresent: undefined,
-      },
-      ...allStudents,
-    ]);
-    setStudentName("");
-  };
+import { useStudent } from "../contexts/StudentContext";
 
-  const updateHandler = (e) => {
-    e.preventDefault();
-    if (!studentName) {
-      alert("Please enter a valid name");
-      return;
-    }
-    const newStudentsList = allStudents.map((student) => {
-      if (student.id === editableStudent.id) {
-        student.name = studentName;
-      }
-      return student;
-    });
-    setAllStudents(newStudentsList);
-    setEditMode(false);
-    setEditableStudent(null);
-    setStudentName("");
-  };
+export default function InputArea() {
+  const {
+    studentName,
+    setStudentName,
+    editMode,
+    createStudent,
+    updateStudent,
+  } = useStudent();
 
   return (
     <form
-      onSubmit={(e) => (editMode ? updateHandler(e) : addStudent(e))}
+      onSubmit={(e) => {
+        // e.preventDefault();
+        // if (!studentName) {
+        //   alert("Please type a valid text!");
+        //   return;
+        // }
+        editMode ? updateStudent(e) : createStudent(e);
+      }}
       className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
     >
       <input

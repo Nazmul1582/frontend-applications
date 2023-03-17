@@ -1,17 +1,17 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-export default function PresentStudents({
-  allStudents,
-  accidentallyAddedHandler,
-}) {
+export default function PresentStudents() {
+  const { students, toggleStudent } = useStudent();
+
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        allStudents.length > 4 && "overflow-y-scroll"
+        students.length > 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">Present Students</h2>
-      {allStudents.map(
+      {students.map(
         (student) =>
           student.isPresent && (
             <div
@@ -20,7 +20,7 @@ export default function PresentStudents({
             >
               <p>{student.name}</p>
               <button
-                onClick={() => accidentallyAddedHandler(student.id)}
+                onClick={() => toggleStudent(student.id)}
                 className="btn  bg-green-500 shadow-green-500/50"
               >
                 Accidentally Added
