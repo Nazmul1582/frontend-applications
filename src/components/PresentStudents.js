@@ -1,8 +1,6 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-const PresentStudents = () => {
-  const { allStudents, toggleHandler } = useStudent();
+const PresentStudents = ({ allStudents, toggleHandler }) => {
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${

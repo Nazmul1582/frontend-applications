@@ -1,9 +1,51 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-const InputArea = () => {
-  const { editMode, studentName, setStudentName, updateHandler, addStudent } =
-    useStudent();
+const InputArea = ({ states }) => {
+  const {
+    editMode,
+    setEditMode,
+    studentName,
+    setStudentName,
+    editableStudent,
+    setEditableStudent,
+    getAllStudents,
+  } = states;
+
+  const addStudent = () => {
+    const newStudent = {
+      id: Date.now() + "",
+      name: studentName,
+      isPresent: "",
+    };
+    fetch("http://localhost:5000/students", {
+      method: "POST",
+      body: JSON.stringify(newStudent),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getAllStudents();
+      setStudentName("");
+    });
+  };
+
+  const updateHandler = () => {
+    fetch(`http://localhost:5000/students/${editableStudent.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        name: studentName,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getAllStudents();
+      setStudentName("");
+      setEditMode(false);
+      setEditableStudent(null);
+    });
+  };
+
   return (
     <form
       onSubmit={(e) => {

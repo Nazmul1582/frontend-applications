@@ -1,14 +1,44 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-const AllStduents = () => {
+const AllStduents = ({ states }) => {
   const {
     allStudents,
-    editHandler,
-    removeHandler,
-    makePresentHandler,
-    makeAbsentHandler,
-  } = useStudent();
+    setStudentName,
+    setEditMode,
+    setEditableStudent,
+    getAllStudents,
+  } = states;
+
+  const editHandler = (studentId) => {
+    setEditMode(true);
+    const toBeEditableStudent = allStudents.find(
+      (student) => student.id === studentId
+    );
+    setStudentName(toBeEditableStudent.name);
+    setEditableStudent(toBeEditableStudent);
+  };
+
+  const removeHandler = (studentId) => {
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "DELETE",
+    }).then(() => getAllStudents());
+  };
+
+  const attedanceHandler = (studentId, value) => {
+    const student = allStudents.find((student) => student.id === studentId);
+    if (student.isPresent !== "") {
+      alert(`${student.name} is already in a list!`);
+      return;
+    }
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ isPresent: value }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => getAllStudents());
+  };
+
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
@@ -36,13 +66,13 @@ const AllStduents = () => {
               Remove
             </button>
             <button
-              onClick={() => makePresentHandler(student.id)}
+              onClick={() => attedanceHandler(student.id, true)}
               className="btn  bg-amber-500 shadow-amber-500/50"
             >
               Make present
             </button>
             <button
-              onClick={() => makeAbsentHandler(student.id)}
+              onClick={() => attedanceHandler(student.id, false)}
               className="btn  bg-pink-500 shadow-pink-500/50"
             >
               Make Absent
