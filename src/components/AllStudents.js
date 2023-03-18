@@ -1,21 +1,23 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-export default function AllStudents({ states }) {
+export default function AllStudents() {
   const {
-    setStudentName,
     students,
+    setStudentName,
     setEditMode,
     setEditableStudent,
+    updateStudents,
     getStudents,
-  } = states;
+  } = useStudent();
 
   const editStudent = (studentId) => {
     setEditMode(true);
-    const toBeEditedStudent = students.find(
+    const toBeEditableStudent = students.find(
       (student) => student.id === studentId
     );
-    setStudentName(toBeEditedStudent.name);
-    setEditableStudent(toBeEditedStudent);
+    setStudentName(toBeEditableStudent.name);
+    setEditableStudent(toBeEditableStudent);
   };
 
   const deleteStudent = (studentId) => {
@@ -25,18 +27,14 @@ export default function AllStudents({ states }) {
   };
 
   const attendanceHandler = (studentId, value) => {
-    const student = students.find((student) => (student.id = studentId));
-    if (student.isPresent !== "") {
-      alert(`${student.name} is already in a list!`);
+    const singleStudent = students.find((student) => student.id === studentId);
+    if (singleStudent.isPresent !== "") {
+      alert(`${singleStudent.name} is already in a list!`);
       return;
     }
-    fetch(`http://localhost:5000/students/${studentId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ isPresent: value }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => getStudents());
+    updateStudents(studentId, "PATCH", { isPresent: value }).then(() =>
+      getStudents()
+    );
   };
 
   return (

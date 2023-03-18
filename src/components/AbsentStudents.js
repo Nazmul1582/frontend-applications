@@ -1,27 +1,8 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-export default function AbsentStudents({ students, toggleStudent }) {
-  // const toggleStudent = (studentId) => {
-  //   // const singleStudent = students.find((student) => student.id === studentId);
-  //   // console.log(singleStudent.isPresent);
-
-  //   // if (singleStudent.isPresent) {
-  //   //   singleStudent.isPresent = false;
-  //   //   console.log(singleStudent.isPresent, "if");
-  //   // } else {
-  //   //   singleStudent.isPresent = true;
-  //   //   console.log(singleStudent.isPresent, "else");
-  //   // }
-  //   fetch(`http://localhost:5000/students/${studentId}`, {
-  //     method: "PATCH",
-  //     body: JSON.stringify({
-  //       isPresent: true,
-  //     }),
-  //     headers: {
-  //       "Content-Type": "application/json; charset=UTF-8",
-  //     },
-  //   }).then(() => getStudents());
-  // };
+export default function AbsentStudents() {
+  const { students, toggleHandler } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
@@ -38,7 +19,7 @@ export default function AbsentStudents({ students, toggleStudent }) {
             >
               <p>{student.name}</p>
               <button
-                onClick={() => toggleStudent(student.id)}
+                onClick={() => toggleHandler(student.id)}
                 className="btn  bg-rose-500 shadow-rose-500/50"
               >
                 Accidentally Added

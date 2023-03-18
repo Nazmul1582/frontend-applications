@@ -1,6 +1,8 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-export default function PresentStudents({ students, toggleStudent }) {
+export default function PresentStudents() {
+  const { students, toggleHandler } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
@@ -17,7 +19,7 @@ export default function PresentStudents({ students, toggleStudent }) {
             >
               <p>{student.name}</p>
               <button
-                onClick={() => toggleStudent(student.id)}
+                onClick={() => toggleHandler(student.id)}
                 className="btn  bg-green-500 shadow-green-500/50"
               >
                 Accidentally Added

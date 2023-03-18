@@ -1,4 +1,6 @@
-export default function InputArea({ states }) {
+import { useStudent } from "../contexts/StudentContext";
+
+export default function InputArea() {
   const {
     studentName,
     setStudentName,
@@ -7,7 +9,8 @@ export default function InputArea({ states }) {
     editableStudent,
     setEditableStudent,
     getStudents,
-  } = states;
+    updateStudents,
+  } = useStudent();
 
   const createStudent = () => {
     const newStudent = {
@@ -15,33 +18,21 @@ export default function InputArea({ states }) {
       name: studentName,
       isPresent: "",
     };
-    fetch(`http://localhost:5000/students`, {
-      method: "POST",
-      body: JSON.stringify(newStudent),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => {
+    updateStudents("", "Post", newStudent).then(() => {
       getStudents();
       setStudentName("");
     });
   };
 
-  const updateStudent = () => {
-    fetch(`http://localhost:5000/students/${editableStudent.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        name: studentName,
-      }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => {
-      getStudents();
-      setStudentName("");
-      setEditMode(false);
-      setEditableStudent(null);
-    });
+  const updateHandler = () => {
+    updateStudents(editableStudent.id, "PATCH", { name: studentName }).then(
+      () => {
+        getStudents();
+        setStudentName("");
+        setEditMode(false);
+        setEditableStudent(null);
+      }
+    );
   };
 
   return (
@@ -52,7 +43,7 @@ export default function InputArea({ states }) {
           alert("Please type a valid text!");
           return;
         }
-        editMode ? updateStudent() : createStudent();
+        editMode ? updateHandler() : createStudent();
       }}
       className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
     >
