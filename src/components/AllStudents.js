@@ -24,34 +24,15 @@ export default function AllStudents({ states }) {
     }).then(() => getStudents());
   };
 
-  const makePresentStudent = (studentId) => {
-    const singleStudent = students.find((student) => student.id === studentId);
-    if (singleStudent.isPresent === true || singleStudent.isPresent === false) {
-      alert(`${singleStudent.name} is already in a list`);
+  const attendanceHandler = (studentId, value) => {
+    const student = students.find((student) => (student.id = studentId));
+    if (student.isPresent !== "") {
+      alert(`${student.name} is already in a list!`);
       return;
     }
-
     fetch(`http://localhost:5000/students/${studentId}`, {
       method: "PATCH",
-      body: JSON.stringify({
-        isPresent: true,
-      }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => getStudents());
-  };
-
-  const makeAbsentStudent = (studentId) => {
-    const singleStudent = students.find((student) => student.id === studentId);
-    if (singleStudent.isPresent === true || singleStudent.isPresent === false) {
-      alert(`${singleStudent.name} is already in a list`);
-      return;
-    }
-
-    fetch(`http://localhost:5000/students/${studentId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ isPresent: false }),
+      body: JSON.stringify({ isPresent: value }),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
@@ -85,13 +66,13 @@ export default function AllStudents({ states }) {
               Remove
             </button>
             <button
-              onClick={() => makePresentStudent(student.id)}
+              onClick={() => attendanceHandler(student.id, true)}
               className="btn  bg-amber-500 shadow-amber-500/50"
             >
               Make present
             </button>
             <button
-              onClick={() => makeAbsentStudent(student.id)}
+              onClick={() => attendanceHandler(student.id, false)}
               className="btn  bg-pink-500 shadow-pink-500/50"
             >
               Make Absent

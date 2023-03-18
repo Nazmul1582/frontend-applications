@@ -8,12 +8,12 @@
     {
       "id": "1679062882556",
       "name": "Sakib",
-      "isPresent": true
+      "isPresent": false
     },
     {
       "id": "1679065355236",
       "name": "Nazmul",
-      "isPresent": true
+      "isPresent": false
     }
   ]
 }

@@ -8,15 +8,10 @@ export default function OutputArea({ states }) {
     const singleStudent = states.students.find(
       (student) => student.id === studentId
     );
-    if (singleStudent.isPresent) {
-      singleStudent.isPresent = false;
-    } else {
-      singleStudent.isPresent = true;
-    }
 
     fetch(`http://localhost:5000/students/${studentId}`, {
       method: "PATCH",
-      body: JSON.stringify(singleStudent),
+      body: JSON.stringify({ isPresent: !singleStudent.isPresent }),
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
       },
