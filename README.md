@@ -1,3 +1,3 @@
-# Note Taking App using Context API, Fetch API and useReducer Hook
+# Simple Student Attendance Application with Context API
 
-![Note Taking App using Context API, Fetch API and useReducer Hook](./src/assets/note-taking-app-using-useReducer-hook-and-context-api.png)
+![Simple Student Attendance Application](./src/assets/simple-student-attendance-application.png)
