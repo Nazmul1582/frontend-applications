@@ -1,3 +1,3 @@
-# Simple Student Attendance Application using Context API
+## Simple Student Attendance Application using Fetch API
 
-![simple-student-attendance-application](./src/assets/student-attendance-app-using-context-api.png)
+![simple-student-attendance-application](./src/assets/simple-student-attendance-application.png)

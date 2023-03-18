@@ -1,22 +1,57 @@
-import { useStudent } from "../contexts/StudentContext";
-
-export default function InputArea() {
+export default function InputArea({ states }) {
   const {
     studentName,
     setStudentName,
     editMode,
-    createStudent,
-    updateStudent,
-  } = useStudent();
+    setEditMode,
+    editableStudent,
+    setEditableStudent,
+    getStudents,
+  } = states;
+
+  const createStudent = () => {
+    const newStudent = {
+      id: Date.now() + "",
+      name: studentName,
+      isPresent: "",
+    };
+    fetch(`http://localhost:5000/students`, {
+      method: "POST",
+      body: JSON.stringify(newStudent),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getStudents();
+      setStudentName("");
+    });
+  };
+
+  const updateStudent = () => {
+    fetch(`http://localhost:5000/students/${editableStudent.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        name: studentName,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => {
+      getStudents();
+      setStudentName("");
+      setEditMode(false);
+      setEditableStudent(null);
+    });
+  };
 
   return (
     <form
       onSubmit={(e) => {
-        // e.preventDefault();
-        // if (!studentName) {
-        //   alert("Please type a valid text!");
-        //   return;
-        // }
+        e.preventDefault();
+        if (!studentName) {
+          alert("Please type a valid text!");
+          return;
+        }
         editMode ? updateStudent(e) : createStudent(e);
       }}
       className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"

@@ -1,40 +1,67 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-export default function AllStudents() {
-  const { students, setStudents, editStudent, deleteStudent } = useStudent();
+export default function AllStudents({ states }) {
+  const {
+    setStudentName,
+    students,
+    setEditMode,
+    setEditableStudent,
+    getStudents,
+  } = states;
 
-  const makePresentStudent = (stuId) => {
-    const presentStudent = students.filter((student) => {
-      if (student.id === stuId) {
-        if (student.isPresent === undefined) {
-          student.isPresent = true;
-        } else {
-          alert(`${student.name} is already in a list!`);
-        }
-      }
-      return student;
-    });
-    setStudents(presentStudent);
+  const editStudent = (studentId) => {
+    setEditMode(true);
+    const toBeEditedStudent = students.find(
+      (student) => student.id === studentId
+    );
+    setStudentName(toBeEditedStudent.name);
+    setEditableStudent(toBeEditedStudent);
   };
-  const makeAbsentStudent = (stuId) => {
-    const absentStudent = students.filter((student) => {
-      if (student.id === stuId) {
-        if (student.isPresent === undefined) {
-          student.isPresent = false;
-        } else {
-          alert(`${student.name} is already in a list!`);
-        }
-      }
-      return student;
-    });
-    setStudents(absentStudent);
+
+  const deleteStudent = (studentId) => {
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "DELETE",
+    }).then(() => getStudents());
+  };
+
+  const makePresentStudent = (studentId) => {
+    const singleStudent = students.find((student) => student.id === studentId);
+    if (singleStudent.isPresent === true || singleStudent.isPresent === false) {
+      alert(`${singleStudent.name} is already in a list`);
+      return;
+    }
+
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "PATCH",
+      body: JSON.stringify({
+        isPresent: true,
+      }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => getStudents());
+  };
+
+  const makeAbsentStudent = (studentId) => {
+    const singleStudent = students.find((student) => student.id === studentId);
+    if (singleStudent.isPresent === true || singleStudent.isPresent === false) {
+      alert(`${singleStudent.name} is already in a list`);
+      return;
+    }
+
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "PATCH",
+      body: JSON.stringify({ isPresent: false }),
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+    }).then(() => getStudents());
   };
 
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        students.length > 4 && "overflow-y-scroll"
+        students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">All Students</h2>

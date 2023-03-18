@@ -1,13 +1,10 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-export default function PresentStudents() {
-  const { students, toggleStudent } = useStudent();
-
+export default function PresentStudents({ students, toggleStudent }) {
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        students.length > 4 && "overflow-y-scroll"
+        students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">Present Students</h2>

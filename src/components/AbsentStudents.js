@@ -1,13 +1,31 @@
 import React from "react";
-import { useStudent } from "../contexts/StudentContext";
 
-export default function AbsentStudents() {
-  const { students, toggleStudent } = useStudent();
+export default function AbsentStudents({ students, toggleStudent }) {
+  // const toggleStudent = (studentId) => {
+  //   // const singleStudent = students.find((student) => student.id === studentId);
+  //   // console.log(singleStudent.isPresent);
 
+  //   // if (singleStudent.isPresent) {
+  //   //   singleStudent.isPresent = false;
+  //   //   console.log(singleStudent.isPresent, "if");
+  //   // } else {
+  //   //   singleStudent.isPresent = true;
+  //   //   console.log(singleStudent.isPresent, "else");
+  //   // }
+  //   fetch(`http://localhost:5000/students/${studentId}`, {
+  //     method: "PATCH",
+  //     body: JSON.stringify({
+  //       isPresent: true,
+  //     }),
+  //     headers: {
+  //       "Content-Type": "application/json; charset=UTF-8",
+  //     },
+  //   }).then(() => getStudents());
+  // };
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        students.length > 4 && "overflow-y-scroll"
+        students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">Absent Students</h2>

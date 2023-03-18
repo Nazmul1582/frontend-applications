@@ -1,0 +1,19 @@
+{
+  "students": [
+    {
+      "id": "1679033136529",
+      "name": "Abdullah",
+      "isPresent": false
+    },
+    {
+      "id": "1679062882556",
+      "name": "Sakib",
+      "isPresent": true
+    },
+    {
+      "id": "1679065355236",
+      "name": "Nazmul",
+      "isPresent": true
+    }
+  ]
+}
