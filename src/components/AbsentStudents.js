@@ -1,14 +1,16 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-const AbsentStudents = ({ allStudents, toggleHandler }) => {
+const AbsentStudents = () => {
+  const { students, toggleHandler } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        allStudents.length > 4 && "overflow-y-scroll"
+        students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">Absent Students</h2>
-      {allStudents.map(
+      {students.map(
         (student) =>
           student.isPresent === false && (
             <div

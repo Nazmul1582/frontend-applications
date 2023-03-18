@@ -1,49 +1,38 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-const InputArea = ({ states }) => {
+const InputArea = () => {
   const {
-    editMode,
-    setEditMode,
     studentName,
     setStudentName,
+    students,
+    setStudents,
+    editMode,
+    setEditMode,
     editableStudent,
     setEditableStudent,
-    getAllStudents,
-  } = states;
+  } = useStudent();
 
-  const addStudent = () => {
+  const createHandler = () => {
     const newStudent = {
       id: Date.now() + "",
       name: studentName,
-      isPresent: "",
+      isPresent: undefined,
     };
-    fetch("http://localhost:5000/students", {
-      method: "POST",
-      body: JSON.stringify(newStudent),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => {
-      getAllStudents();
-      setStudentName("");
-    });
+    setStudents([...students, newStudent]);
+    setStudentName("");
   };
-
   const updateHandler = () => {
-    fetch(`http://localhost:5000/students/${editableStudent.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({
-        name: studentName,
-      }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => {
-      getAllStudents();
-      setStudentName("");
-      setEditMode(false);
-      setEditableStudent(null);
+    const updatedStudents = students.map((student) => {
+      if (student.id === editableStudent.id) {
+        student.name = studentName;
+      }
+      return student;
     });
+    setStudents(updatedStudents);
+    setStudentName("");
+    setEditMode(false);
+    setEditableStudent(null);
   };
 
   return (
@@ -53,7 +42,7 @@ const InputArea = ({ states }) => {
         if (!studentName) {
           alert("Please type a valid name!");
         }
-        editMode ? updateHandler(e) : addStudent(e);
+        editMode ? updateHandler(e) : createHandler(e);
       }}
       className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
     >

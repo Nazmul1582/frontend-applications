@@ -1,17 +1,18 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-const AllStduents = ({ states }) => {
+const AllStduents = () => {
   const {
-    allStudents,
+    students,
+    setStudents,
     setStudentName,
     setEditMode,
     setEditableStudent,
-    getAllStudents,
-  } = states;
+  } = useStudent();
 
   const editHandler = (studentId) => {
     setEditMode(true);
-    const toBeEditableStudent = allStudents.find(
+    const toBeEditableStudent = students.find(
       (student) => student.id === studentId
     );
     setStudentName(toBeEditableStudent.name);
@@ -19,34 +20,34 @@ const AllStduents = ({ states }) => {
   };
 
   const removeHandler = (studentId) => {
-    fetch(`http://localhost:5000/students/${studentId}`, {
-      method: "DELETE",
-    }).then(() => getAllStudents());
+    const updatedStudents = students.filter(
+      (student) => student.id !== studentId
+    );
+    setStudents(updatedStudents);
   };
 
   const attedanceHandler = (studentId, value) => {
-    const student = allStudents.find((student) => student.id === studentId);
-    if (student.isPresent !== "") {
-      alert(`${student.name} is already in a list!`);
-      return;
-    }
-    fetch(`http://localhost:5000/students/${studentId}`, {
-      method: "PATCH",
-      body: JSON.stringify({ isPresent: value }),
-      headers: {
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-    }).then(() => getAllStudents());
+    const updatedStudents = students.map((student) => {
+      if (student.id === studentId) {
+        if (student.isPresent !== undefined) {
+          alert(`${student.name} is already in a list!`);
+        } else {
+          student.isPresent = value;
+        }
+      }
+      return student;
+    });
+    setStudents(updatedStudents);
   };
 
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        allStudents.length > 4 && "overflow-y-scroll"
+        students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">All Students</h2>
-      {allStudents.map((student) => (
+      {students.map((student) => (
         <div
           key={student.id}
           className="flex justify-between gap-3 font-semibold my-2 bg-slate-200 p-2 rounded-md"
