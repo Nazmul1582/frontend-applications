@@ -1,7 +1,43 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
 const AllStduents = () => {
-  const students = [{ id: 1, name: "Nazmul", isPresent: true }];
+  const {
+    students,
+    setStudentName,
+    setEditMode,
+    setEditableStudent,
+    updateStudents,
+    getStudents,
+  } = useStudent();
+
+  const editHandler = (studentId) => {
+    const toBeEditedStudent = students.find(
+      (student) => student.id === studentId
+    );
+    setEditMode(true);
+    setStudentName(toBeEditedStudent.name);
+    setEditableStudent(toBeEditedStudent);
+  };
+
+  const removeHandler = (studentId) => {
+    fetch(`http://localhost:5000/students/${studentId}`, {
+      method: "DELETE",
+    }).then(() => getStudents());
+  };
+
+  const attendanceHandler = (studentId, value) => {
+    const singleStudent = students.find((student) => student.id === studentId);
+
+    if (singleStudent.isPresent !== "") {
+      alert(`${singleStudent.name} is already in a list!`);
+      return;
+    }
+
+    updateStudents(studentId, "PATCH", { isPresent: value }).then(() =>
+      getStudents()
+    );
+  };
 
   return (
     <div
@@ -18,25 +54,25 @@ const AllStduents = () => {
           <p>{student.name}</p>
           <div className=" flex gap-1">
             <button
-              // onClick={() => editHandler(student.id)}
+              onClick={() => editHandler(student.id)}
               className="btn  bg-indigo-500 shadow-indigo-500/50"
             >
               Edit
             </button>
             <button
-              // onClick={() => removeHandler(student.id)}
+              onClick={() => removeHandler(student.id)}
               className="btn  bg-cyan-500 shadow-cyan-500/50"
             >
               Remove
             </button>
             <button
-              // onClick={() => attedanceHandler(student.id, true)}
+              onClick={() => attendanceHandler(student.id, true)}
               className="btn  bg-amber-500 shadow-amber-500/50"
             >
               Make present
             </button>
             <button
-              // onClick={() => attedanceHandler(student.id, false)}
+              onClick={() => attendanceHandler(student.id, false)}
               className="btn  bg-pink-500 shadow-pink-500/50"
             >
               Make Absent

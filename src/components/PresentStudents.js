@@ -1,9 +1,9 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
 const PresentStudents = () => {
-  const students = [{ id: 1, name: "Nazmul", isPresent: true }];
+  const { students, toggleHandler } = useStudent();
 
-  const toggleHandler = () => {};
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${

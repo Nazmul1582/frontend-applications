@@ -1,8 +1,8 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
 const AbsentStudents = () => {
-  const students = [{ id: 1, name: "Nazmul", isPresent: true }];
-  const toggleHandler = () => {};
+  const { students, toggleHandler } = useStudent();
 
   return (
     <div
