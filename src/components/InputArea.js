@@ -1,61 +1,40 @@
-import { useStudent } from "../contexts/StudentContext";
+import React from "react";
 
-export default function InputArea() {
-  const {
-    studentName,
-    setStudentName,
-    editMode,
-    setEditMode,
-    editableStudent,
-    setEditableStudent,
-    getStudents,
-    updateStudents,
-  } = useStudent();
-
-  const createStudent = () => {
-    const newStudent = {
-      id: Date.now() + "",
-      name: studentName,
-      isPresent: "",
-    };
-    updateStudents("", "Post", newStudent).then(() => {
-      getStudents();
-      setStudentName("");
-    });
-  };
-
-  const updateHandler = () => {
-    updateStudents(editableStudent.id, "PATCH", { name: studentName }).then(
-      () => {
-        getStudents();
-        setStudentName("");
-        setEditMode(false);
-        setEditableStudent(null);
-      }
-    );
-  };
-
+const InputArea = ({ state, dispatch }) => {
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        if (!studentName) {
-          alert("Please type a valid text!");
+        if (!state.studentName) {
+          alert("Please enter a valid name!");
           return;
         }
-        editMode ? updateHandler() : createStudent();
+        state.editMode
+          ? dispatch({
+              type: "UPDATE_STUDENT",
+              payload: {
+                property: "name",
+                studentId: state.editableStudent.id,
+                value: state.studentName,
+              },
+            })
+          : dispatch({ type: "CREATE_STUDENT" });
       }}
       className="mb-10 bg-white shadow-xl p-5 rounded-xl text-center font-bold flex justify-center items-center gap-5"
     >
       <input
         type="text"
-        value={studentName}
-        onChange={(e) => setStudentName(e.target.value)}
+        value={state.studentName}
+        onChange={(e) =>
+          dispatch({ type: "CHANGE_NAME", payload: e.target.value })
+        }
         className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-green-500 outline-0"
       />
       <button className="btn bg-green-500 shadow-green-500/50">
-        {editMode ? "Update" : "Add"}
+        {state.editMode ? "Update" : "Add"}
       </button>
     </form>
   );
-}
+};
+
+export default InputArea;
