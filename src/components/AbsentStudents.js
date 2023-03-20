@@ -1,4 +1,7 @@
-const AbsentStudents = ({ state, dispatch }) => {
+import { useStudent } from "../contexts/StudentContext";
+
+const AbsentStudents = () => {
+  const { state, dispatch } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${

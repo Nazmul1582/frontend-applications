@@ -1,4 +1,7 @@
-const AllStduents = ({ state, dispatch }) => {
+import { useStudent } from "../contexts/StudentContext";
+
+const AllStduents = () => {
+  const { state, dispatch } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
@@ -32,7 +35,7 @@ const AllStduents = ({ state, dispatch }) => {
             <button
               onClick={() => {
                 if (student.isPresent !== undefined) {
-                  alert(`${student.isPresent} is already in a list!`);
+                  alert(`${student.name} is already in a list!`);
                   return;
                 }
                 dispatch({
@@ -51,7 +54,7 @@ const AllStduents = ({ state, dispatch }) => {
             <button
               onClick={() => {
                 if (student.isPresent !== undefined) {
-                  alert(`${student.isPresent} is already in a list!`);
+                  alert(`${student.name} is already in a list!`);
                   return;
                 }
                 dispatch({

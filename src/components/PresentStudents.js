@@ -1,4 +1,7 @@
-const PresentStudents = ({ state, dispatch }) => {
+import { useStudent } from "../contexts/StudentContext";
+
+const PresentStudents = () => {
+  const { state, dispatch } = useStudent();
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${

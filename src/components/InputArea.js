@@ -1,10 +1,14 @@
-const InputArea = ({ state, dispatch }) => {
+import { useStudent } from "../contexts/StudentContext";
+
+const InputArea = () => {
+  const { state, dispatch } = useStudent();
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         if (!state.studentName) {
           alert("Please type a valid name!");
+          return;
         }
         state.editMode
           ? dispatch({
@@ -22,9 +26,9 @@ const InputArea = ({ state, dispatch }) => {
       <input
         type="text"
         value={state.studentName}
-        onChange={(e) =>
-          dispatch({ type: "CHANGE_NAME", payload: e.target.value })
-        }
+        onChange={(e) => {
+          dispatch({ type: "CHANGE_NAME", payload: e.target.value });
+        }}
         className="p-2 rounded-md bg-slate-200 w-full border border-slate-200 focus:border-green-500 outline-0"
       />
       <button className="btn bg-green-500 shadow-green-500/50">
