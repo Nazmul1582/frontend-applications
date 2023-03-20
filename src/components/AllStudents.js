@@ -1,6 +1,9 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-const AllStduents = ({ state, dispatch }) => {
+const AllStduents = () => {
+  const { state, dispatch } = useStudent();
+
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${

@@ -27,15 +27,14 @@ const studentReducer = (state, action) => {
         editableStudent: toBeEditedStudent,
       };
     case "UPDATE_STUDENT":
-      const updateStudents = state.students.map((student) => {
+      const updateStudent = state.students.map((student) => {
         if (student.id === action.payload.studentId) {
           student[action.payload.property] = action.payload.value;
         }
         return student;
       });
       return {
-        ...state,
-        students: updateStudents,
+        students: updateStudent,
         studentName: "",
         editMode: false,
         editableStudent: null,
@@ -52,4 +51,5 @@ const studentReducer = (state, action) => {
       return state;
   }
 };
+
 export default studentReducer;

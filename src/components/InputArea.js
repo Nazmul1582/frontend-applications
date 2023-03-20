@@ -1,13 +1,15 @@
 import React from "react";
+import { useStudent } from "../contexts/StudentContext";
 
-const InputArea = ({ state, dispatch }) => {
+const InputArea = () => {
+  const { state, dispatch } = useStudent();
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         if (!state.studentName) {
-          alert("Please enter a valid name!");
-          return;
+          alert("Please type a valid name!");
         }
         state.editMode
           ? dispatch({
