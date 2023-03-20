@@ -1,17 +1,12 @@
-import React from "react";
-import { useStudent } from "../contexts/StudentContext";
-
-const PresentStudents = () => {
-  const { students, toggleHandler } = useStudent();
-
+const PresentStudents = ({ state, dispatch }) => {
   return (
     <div
       className={`bg-white shadow-xl rounded-xl text-center p-3 ${
-        students.length >= 4 && "overflow-y-scroll"
+        state.students.length >= 4 && "overflow-y-scroll"
       }  max-h-[50vh]`}
     >
       <h2 className="mb-5 text-xl font-bold">Present Students</h2>
-      {students.map(
+      {state.students.map(
         (student) =>
           student.isPresent && (
             <div
@@ -20,7 +15,16 @@ const PresentStudents = () => {
             >
               <p>{student.name}</p>
               <button
-                onClick={() => toggleHandler(student.id)}
+                onClick={() =>
+                  dispatch({
+                    type: "UPDATE_STUDENT",
+                    payload: {
+                      property: "isPresent",
+                      studentId: student.id,
+                      value: false,
+                    },
+                  })
+                }
                 className="btn  bg-green-500 shadow-green-500/50"
               >
                 Accidentally Added
